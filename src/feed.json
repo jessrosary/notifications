@@ -1,5 +1,4 @@
-{
-  "notifications": [
+[
   {
     "user": "Mark Webber", 
     "img" : "src/assets/avatar-mark-webber.webp",
@@ -48,5 +47,4 @@
     "group": "Chess Club",
     "timestamp": "2 weeks ago"
   }
-  ]
-}
+]

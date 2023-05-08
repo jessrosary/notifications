@@ -1,56 +1,81 @@
-import { useState, useEffect } from 'react'
-import { notifications } from './feed.json'
-import './App.css'
+import { useState } from 'react';
+import feedData from './feed.json';
+import './App.css';
 
-interface Data{
+const FEED = feedData.map((n) => {
+  return {
+    ...n,
+    isRead: false,
+  } as Data;
+});
+
+interface Data {
   user: string;
   img: string;
   action: string;
   timestamp: string;
-  isActive: boolean;
+  isRead: boolean;
   post?: string;
   group?: string;
   message?: string;
   picture?: string;
 }
 
-const Notification = (props: any) => {
-  return (
-    <div className='notification' onClick={props.onClick} style={props.style}>
-      <img src={props.img} />
-      {props.user}&nbsp;{props.action}&nbsp;{props.group || props.post}<br>
-          </br>{props.timestamp}
-          {props.message && <p>{props.message}</p>}
-    </div>
-  )
-}
+const unreadCount = (notifications: Data[]) =>
+  notifications.reduce((sum, data) => sum + (data.isRead ? 0 : 1), 0);
 
+type NotificationProps = {
+  notification: Data;
+  onClick: () => void;
+};
+
+// add type for props with notification field with Data type
+// const Notification = (props: any) => {
+const Notification: React.FC<NotificationProps> = ({
+  notification: n,
+  onClick,
+}) => {
+  return (
+    <div className='notification' onClick={onClick}>
+      <img src={n.img} />
+      {n.user}&nbsp;{n.action}&nbsp;{n.group || n.post}
+      <br></br>
+      {n.timestamp}
+      {n.message && <p>{n.message}</p>}
+    </div>
+  );
+};
 
 function App() {
-  const [isActive, setActive] = useState()
+  const [notifications, setNotifications] = useState(FEED);
+  const [count, setCount] = useState(unreadCount(notifications));
 
-  const newFeed = notifications.map((n) => {
-    return {
-      ...n,
-      isActive: true
-    } as Data
-  }) 
+  const markRead = (i: number) => {
+    console.log(`marking ${i} as read`);
+    notifications[i].isRead = true;
+    setNotifications(notifications);
+    setCount(unreadCount(notifications));
+  };
 
-  const [feed, setFeed] = useState(newFeed)
-
+  console.log('render', { count });
 
   return (
-    <div className="App">
-      <div onClick={() => console.log('marking all as read')}>Mark all as read</div>
-      {feed.map((n, i) => (
-        <Notification 
-          key={i} 
-          {...n}
-          onClick={() => console.log(`setting state for ${n.user}`)}
-          />
+    <div className='App'>
+      <div>
+        Notifications <button>{count}</button>
+      </div>
+      <div onClick={() => console.log('marking all as read')}>
+        Mark all as read
+      </div>
+      {notifications.map((notification, i) => (
+        <Notification
+          key={i}
+          notification={notification}
+          onClick={() => markRead(i)}
+        />
       ))}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
