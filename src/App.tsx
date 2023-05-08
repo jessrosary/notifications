@@ -2,43 +2,91 @@ import { useState } from 'react';
 import feedData from './feed.json';
 import './App.css';
 
-const FEED = feedData.map((n) => {
+const ACTIVITIES = feedData.map((x) => {
   return {
-    ...n,
+    ...x,
     isRead: false,
-  } as Data;
+  } as Activity;
 });
 
-interface Data {
+type ActivityType =
+  | 'postReaction'
+  | 'follow'
+  | 'privateMessage'
+  | 'pictureComment'
+  | 'groupJoin'
+  | 'groupLeave';
+
+interface Activity {
   user: string;
-  img: string;
-  action: string;
-  timestamp: string;
+  activityType: ActivityType;
   isRead: boolean;
-  post?: string;
-  group?: string;
+  timestamp: string;
+  groupName?: string;
   message?: string;
-  picture?: string;
+  pictureUrl?: string;
+  postTitle?: string;
+  userImageUrl: string;
 }
 
-const unreadCount = (notifications: Data[]) =>
-  notifications.reduce((sum, data) => sum + (data.isRead ? 0 : 1), 0);
+const exhaustiveMatchGuard = (_: never): never => {
+  throw new Error('Impossible!');
+};
+
+const ActivityMessage: React.FC<{ activity: Activity }> = ({ activity: a }) => {
+  console.log(a.activityType);
+
+  switch (a.activityType) {
+    case 'postReaction':
+      return (
+        <>
+          reacted to your recent post <strong>{a.postTitle}</strong>
+        </>
+      );
+    case 'follow':
+      return <>followed you</>;
+    case 'pictureComment':
+      return (
+        <>
+          commented on your picture <img src={a.pictureUrl} />
+        </>
+      );
+    case 'groupLeave':
+      return (
+        <>
+          left the group <strong>{a.groupName}</strong>
+        </>
+      );
+    case 'groupJoin':
+      return (
+        <>
+          has joined your group <strong>{a.groupName}</strong>
+        </>
+      );
+    case 'privateMessage':
+      return <>sent you a private message</>;
+    default:
+      return exhaustiveMatchGuard(a.activityType);
+  }
+};
+
+const unreadCount = (notifications: Activity[]) =>
+  notifications.reduce((sum, a) => sum + (a.isRead ? 0 : 1), 0);
 
 type NotificationProps = {
-  notification: Data;
+  notification: Activity;
   onClick: () => void;
 };
 
-// add type for props with notification field with Data type
-// const Notification = (props: any) => {
 const Notification: React.FC<NotificationProps> = ({
   notification: n,
   onClick,
 }) => {
   return (
     <div className='notification' onClick={onClick}>
-      <img src={n.img} />
-      {n.user}&nbsp;{n.action}&nbsp;{n.group || n.post}
+      <img src={n.userImageUrl} />
+      <strong>{n.user}</strong>&nbsp;
+      <ActivityMessage activity={n} />
       <br></br>
       {n.timestamp}
       {n.message && <p>{n.message}</p>}
@@ -47,12 +95,18 @@ const Notification: React.FC<NotificationProps> = ({
 };
 
 function App() {
-  const [notifications, setNotifications] = useState(FEED);
+  const [notifications, setNotifications] = useState(ACTIVITIES);
   const [count, setCount] = useState(unreadCount(notifications));
 
   const markRead = (i: number) => {
     console.log(`marking ${i} as read`);
     notifications[i].isRead = true;
+    setNotifications(notifications);
+    setCount(unreadCount(notifications));
+  };
+
+  const markAllRead = () => {
+    notifications.forEach((n) => (n.isRead = true));
     setNotifications(notifications);
     setCount(unreadCount(notifications));
   };
@@ -64,9 +118,7 @@ function App() {
       <div>
         Notifications <button>{count}</button>
       </div>
-      <div onClick={() => console.log('marking all as read')}>
-        Mark all as read
-      </div>
+      <div onClick={markAllRead}>Mark all as read</div>
       {notifications.map((notification, i) => (
         <Notification
           key={i}

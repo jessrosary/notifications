@@ -1,50 +1,50 @@
 [
   {
     "user": "Mark Webber", 
-    "img" : "src/assets/avatar-mark-webber.webp",
-    "action": "reacted to your recent post", 
-    "post": "My first tournament today!",
+    "userImageUrl" : "src/assets/avatar-mark-webber.webp",
+    "activityType": "postReaction", 
+    "postTitle": "My first tournament today!",
     "timestamp": "1m ago"
   },
   {
     "user": "Angela Gray", 
-    "img": "src/assets/avatar-angela-gray.webp",
-    "action": "followed you", 
+    "userImageUrl": "src/assets/avatar-angela-gray.webp",
+    "activityType": "follow", 
     "timestamp": "5m ago"
   },
   {
     "user": "Jacob Thompson", 
-    "img": "src/assets/avatar-jacob-thompson.webp",
-    "action": "has joined your group", 
-    "group": "Chess Club",
+    "userImageUrl": "src/assets/avatar-jacob-thompson.webp",
+    "activityType": "groupJoin", 
+    "groupName": "Chess Club",
     "timestamp": "1d ago"
   },
   {
     "user": "Rizky Hasanuddin", 
-    "img": "src/assets/avatar-rizky-hasanuddin.webp",
-    "action": "sent you a private message", 
+    "userImageUrl": "src/assets/avatar-rizky-hasanuddin.webp",
+    "activityType": "privateMessage", 
     "timestamp": "5 days ago",
     "message": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
   },
   {
     "user": "Kimberly Smith", 
-    "img": "src/assets/avatar-kimberly-smith.webp",
-    "action": "commented on your picture", 
-    "picture": "src/assets/image-chess.webp",
+    "userImageUrl": "src/assets/avatar-kimberly-smith.webp",
+    "activityType": "pictureComment", 
+    "pictureUrl": "src/assets/image-chess.webp",
     "timestamp": "1 week ago"
   },
   {
     "user": "Nathan Peterson", 
-    "img": "src/assets/avatar-nathan-peterson.webp",
-    "action": "reacted to your recent post", 
-    "post": "5 end-game strategies to increase your win rate",
+    "userImageUrl": "src/assets/avatar-nathan-peterson.webp",
+    "activityType": "postReaction", 
+    "postTitle": "5 end-game strategies to increase your win rate",
     "timestamp": "2 weeks ago"
   },
   {
     "user": "Anna Kim", 
-    "img": "src/assets/avatar-anna-kim.webp",
-    "action": "left the group", 
-    "group": "Chess Club",
+    "userImageUrl": "src/assets/avatar-anna-kim.webp",
+    "activityType": "groupLeave", 
+    "groupName": "Chess Club",
     "timestamp": "2 weeks ago"
   }
 ]
