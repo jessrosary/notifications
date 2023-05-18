@@ -83,7 +83,7 @@ const Notification: React.FC<NotificationProps> = ({
   onClick,
 }) => {
   return (
-    <div className='notification' onClick={onClick}>
+    <div className='Notification' onClick={onClick}>
       <img src={n.userImageUrl} />
       <strong>{n.user}</strong>&nbsp;
       <ActivityMessage activity={n} />
