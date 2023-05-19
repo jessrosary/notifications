@@ -40,7 +40,7 @@ const ActivityMessage: React.FC<{ activity: Activity }> = ({ activity: a }) => {
     case 'postReaction':
       return (
         <>
-          reacted to your recent post <strong>{a.postTitle}</strong>
+          reacted to your recent post <a>{a.postTitle}</a>
         </>
       );
     case 'follow':
@@ -48,19 +48,20 @@ const ActivityMessage: React.FC<{ activity: Activity }> = ({ activity: a }) => {
     case 'pictureComment':
       return (
         <>
-          commented on your picture <img src={a.pictureUrl} />
+          commented on your picture{' '}
+          <img className='activity-photo' src={a.pictureUrl} />
         </>
       );
     case 'groupLeave':
       return (
         <>
-          left the group <strong>{a.groupName}</strong>
+          left the group <a>{a.groupName}</a>
         </>
       );
     case 'groupJoin':
       return (
         <>
-          has joined your group <strong>{a.groupName}</strong>
+          has joined your group <a>{a.groupName}</a>
         </>
       );
     case 'privateMessage':
@@ -84,12 +85,16 @@ const Notification: React.FC<NotificationProps> = ({
 }) => {
   return (
     <div className='Notification' onClick={onClick}>
-      <img src={n.userImageUrl} />
+      <img className='profile-photo' src={n.userImageUrl} />
       <strong>{n.user}</strong>&nbsp;
-      <ActivityMessage activity={n} />
+      <span>
+        <ActivityMessage activity={n} />
+        &nbsp;
+        {!n.isRead && <button className='active-flag'></button>}
+      </span>
       <br></br>
       {n.timestamp}
-      {n.message && <p>{n.message}</p>}
+      {n.message && <div className='message'>{n.message}</div>}
     </div>
   );
 };
@@ -115,10 +120,13 @@ function App() {
 
   return (
     <div className='App'>
-      <div>
-        Notifications <button>{count}</button>
+      <div className='header'>
+        <span>
+          <strong>Notifications</strong>
+          {count !== 0 && <button className='count'>{count}</button>}
+        </span>
+        <div onClick={markAllRead}>Mark all as read</div>
       </div>
-      <div onClick={markAllRead}>Mark all as read</div>
       {notifications.map((notification, i) => (
         <Notification
           key={i}

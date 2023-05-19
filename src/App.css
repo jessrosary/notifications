@@ -5,7 +5,7 @@ body {
   align-items: center;
   justify-content: center;
   background-color: hsl(210, 60%, 98%);
-  
+  color: hsl(219, 12%, 42%);
 }
 
 #root {
@@ -19,5 +19,69 @@ body {
   background-color: white;
   padding: 15px;
   border-radius: 1em;
+  max-width: 750px;
 }
 
+a {
+  color: hsl(219, 85%, 26%);
+}
+
+.Notification {
+  background-color:hsl(210, 60%, 98%);
+  margin: 1em;
+  border-radius: 1em;
+  padding: 1em;
+}
+
+.Notification a {
+  font-weight: 800;
+}
+
+.count {
+  border: none;
+  margin-left: 1em;
+  padding: 1px 15px;
+  border-radius: 5px;
+  background-color: hsl(219, 85%, 26%);
+  font-size: 1.2em;
+  color: white;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.message {
+  background-color: hsl(211, 68%, 94%);
+  border-radius: 1em;
+  padding: 1em;
+  margin: .5em;
+}
+
+.profile-photo {
+  width: 3em;
+  height: auto;
+  float: left;
+  padding-right: 1.2em;
+}
+
+.activity-photo {
+  width: 3em;
+  height: auto;
+  float: right;
+}
+
+.active-flag {
+  border: none;
+  margin: 0px;
+  padding: 0px;
+  width: 7px;
+  height: 7px;
+  border-radius: 7px;
+  background-color: hsl(1, 90%, 64%);
+  position: relative;
+  bottom: 5px;
+}
