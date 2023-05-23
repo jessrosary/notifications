@@ -1,5 +1,134 @@
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsl(210, 60%, 98%);
+  color: hsl(219, 12%, 42%);
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
+  height: 1vh;
+}
+
+.App {
+  background-color: white;
+  padding: 1em;
+  border-radius: 1em;
+  max-width: 750px;
+  line-height: 1.5em;
+}
+
+a {
+  color: hsl(219, 85%, 26%);
+  cursor: pointer;
+}
+
+.Notification {
+  margin: 1em;
+  border-radius: 1em;
+  padding: 1em;
+
+  &.active {
+    cursor: pointer;
+    background: linear-gradient(
+      45deg,
+      white 45%,
+      hsl(219, 14%, 63%),
+      hsl(210, 60%, 98%) 45%
+    );
+    background-size: 400% 400%;
+    animation: gradient 2s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0%;
+    }
+
+    100% {
+      background-position: 100%;
+    }
+  }
+}
+
+a {
+  font-weight: 800;
+  color: hsl(218, 14%, 36%);
+}
+
+a:hover {
+  color: hsl(219, 85%, 26%);
+  cursor: pointer;
+}
+
+.label {
+  font-size: 1.5em;
+  font-weight: 800;
+}
+
+.count {
+  border: none;
+  margin-left: 10px;
+  padding: 1px 12px;
+  border-radius: 5px;
+  background-color: hsl(219, 85%, 26%);
+  font-size: 1.2em;
+  color: white;
+  font-weight: 800;
+}
+
+.header {
+  margin: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    font-weight: initial;
+  }
+}
+
+.message {
+  background-color: transparent;
+  border: 1px solid hsl(205, 33%, 90%);
+  border-radius: 0.75em;
+  padding: 1em;
+  margin: 0.5em 0.5em 0.5em 65px;
+
+  &.active {
+    background-color: hsl(211, 68%, 94%);
+  }
+}
+
+.profile-photo {
+  height: 80px;
+  float: left;
+  padding-right: 1.2em;
+}
+
+.profile-photo img {
+  width: 3em;
+}
+
+.activity-photo {
+  width: 3em;
+  float: right;
+}
+
+.active-flag {
+  border: none;
+  margin-left: 3px;
+  padding: 0px;
+  width: 8px;
+  height: 8px;
+  border-radius: 8px;
+  background-color: hsl(1, 90%, 64%);
+  position: relative;
+  bottom: 5px;
 }

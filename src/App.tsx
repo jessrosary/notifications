@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import feedData from './feed.json';
-import './App.css';
+import './App.scss';
 
 const ACTIVITIES = feedData.map((x) => {
   return {
@@ -84,9 +84,14 @@ const Notification: React.FC<NotificationProps> = ({
   onClick,
 }) => {
   return (
-    <div className='Notification' onClick={onClick}>
-      <img className='profile-photo' src={n.userImageUrl} />
-      <strong>{n.user}</strong>&nbsp;
+    <div
+      className={!n.isRead ? 'Notification active' : 'Notification'}
+      onClick={onClick}
+    >
+      <div className='profile-photo'>
+        <img src={n.userImageUrl} />
+      </div>
+      <a className='username'>{n.user}</a>&nbsp;
       <span>
         <ActivityMessage activity={n} />
         &nbsp;
@@ -94,7 +99,11 @@ const Notification: React.FC<NotificationProps> = ({
       </span>
       <br></br>
       {n.timestamp}
-      {n.message && <div className='message'>{n.message}</div>}
+      {n.message && (
+        <div className={!n.isRead ? 'message active' : 'message'}>
+          {n.message}
+        </div>
+      )}
     </div>
   );
 };
@@ -122,10 +131,10 @@ function App() {
     <div className='App'>
       <div className='header'>
         <span>
-          <strong>Notifications</strong>
+          <span className='label'>Notifications</span>
           {count !== 0 && <button className='count'>{count}</button>}
         </span>
-        <div onClick={markAllRead}>Mark all as read</div>
+        <a onClick={markAllRead}>Mark all as read</a>
       </div>
       {notifications.map((notification, i) => (
         <Notification
