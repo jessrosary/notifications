@@ -32,6 +32,7 @@ a {
   margin: 1em;
   border-radius: 1em;
   padding: 1em;
+  transition: 2s;
 
   &.active {
     cursor: pointer;
@@ -100,6 +101,7 @@ a:hover {
   border-radius: 0.75em;
   padding: 1em;
   margin: 0.5em 0.5em 0.5em 65px;
+  transition: 2s;
 
   &.active {
     background-color: hsl(211, 68%, 94%);
@@ -110,15 +112,16 @@ a:hover {
   height: 80px;
   float: left;
   padding-right: 1.2em;
-}
 
-.profile-photo img {
-  width: 3em;
+  img {
+    width: 3em;
+  }
 }
 
 .activity-photo {
   width: 3em;
   float: right;
+  margin: 1em;
 }
 
 .active-flag {
